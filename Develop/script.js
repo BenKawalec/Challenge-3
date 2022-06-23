@@ -1,6 +1,6 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-
+var passwordText = document.querySelector("#password");
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
@@ -9,44 +9,69 @@ function writePassword() {
   passwordText.value = password;
 
 }
-let chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-chars = chars.split('')
 
-console.log(Math.random())
 
-console.log(chars)
+
+
+let lowerCase = "abcdefghijklmnopqrstuvwxyz";
+let upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+let numbers = "0123456789"
+let specialChar = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+
+
+
 // Add event listener to generate button
-generateBtn.addEventListener("click", randomNumber);
+generateBtn.addEventListener("click", passwordGenerator);
 
-function passwordInfo() {
-  charNum  = prompt("how many characters do you want");
-  if (charNum != null) {
-    questions()
-  }
+let passCharacters = "";
+function passwordGenerator() {
+
+    length = prompt("how many characters do you want");
+    
+    if (length < 8) {
+      alert("Must contain at least 8 characters")
+      return
+    } else if ( length > 128){
+      alert("Must contain less than 128 characters")
+      return
+    }
+    
+    alerts()
+
+
+
+    
+
+    var password = "";
+    for (let i = 0; i < length; i++) {
+      password += passCharacters[Math.floor(Math.random() * passCharacters.length)]
+    }
+
+    passwordText.textContent = password
+}
+
+
+function alerts() {
   
-  if (charNum < 8) {
-    alert("Must contain at least 8 characters")
-  } else if ( charNum > 128){
-    alert("Must contain less than 128 characters")
-  }
-
+  let lowerCaseAlert = confirm("Do you want lowercase letters?")
+  if (lowerCaseAlert) {
+     passCharacters += lowerCase;
 }
 
-function questions() {
-  specialChar = confirm("Do you want to include speical characters")
-  includeNum = confirm("Do you want numbers included?")
-  lowerCase = confirm("Do you want to include lowercase letters")
-  upperCase = confirm("Do you want to include Uppercase letters")
+  let upperCaseAlert = confirm('Do you want upper case letters?')
+  if (upperCaseAlert) {
+   passCharacters += upperCase;
 }
 
-const max = 128
-const min = 8
-
-
-function randomNumber() {
-  console.log(Math.floor(Math.random() * 72) + 1);
+  let numbersAlert = confirm('Do you want numbers?')
+  if (numbersAlert) {
+   passCharacters += numbers;
 }
 
+  let specialAlert = confirm('Do you want special characters?')
+  if (specialAlert) {
+    passCharacters += specialChar;
+}
 
-
+}
